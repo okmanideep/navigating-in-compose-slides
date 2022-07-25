@@ -37,14 +37,14 @@ async function css() {
 
 async function main() {
   try {
-    await fs.promises.access("dist", fs.constants.R_OK | fs.constants.W_OK)
+    await fs.promises.access("docs", fs.constants.R_OK | fs.constants.W_OK)
   } catch (_) {
-    console.log("Creating dist directory")
-    await fs.promises.mkdir("dist")
+    console.log("Creating docs directory")
+    await fs.promises.mkdir("docs")
   } finally {
-    // clean`/dist` folder if exists
-    console.log("Cleaning dist")
-    await fs.promises.rm("dist/index.html", { force: true })
+    // clean`/docs` folder if exists
+    console.log("Cleaning docs")
+    await fs.promises.rm("docs/index.html", { force: true })
   }
 
   const liquid = new Liquid({
@@ -54,8 +54,8 @@ async function main() {
 
   const [INLINE_JS, INLINE_CSS] = await Promise.all([js(), css()])
   const htmlStream = await liquid.renderFileToNodeStream("index", { INLINE_CSS, INLINE_JS })
-  await fs.promises.writeFile("dist/index.html", htmlStream)
-  console.log("Updated dist/index.html")
+  await fs.promises.writeFile("docs/index.html", htmlStream)
+  console.log("Updated docs/index.html")
 }
 
 await main()
