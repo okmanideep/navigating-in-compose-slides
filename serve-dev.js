@@ -22,6 +22,6 @@ async function watchAndBuild() {
 }
 
 const app = express()
-app.use(express.static("dist"))
+app.use(express.static("docs"))
 app.listen("3333")
 await watchAndBuild()

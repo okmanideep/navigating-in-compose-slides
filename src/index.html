@@ -1,26 +1,959 @@
 <!doctype html>
 <html>
+
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 		<style>
-			{{ INLINE_CSS }}
+		{{INLINE_CSS}}
 		</style>
 
 		<title>Slides</title>
 
 	</head>
+
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
+				<section>
+					🧭 Building a navigation framework in Compose
+					<p class="small">
+						<a href="https://twitter.com/okmanideep"><i class="fa-brands fa-twitter"></i> okmanideep</a>
+					</p>
+				</section>
+				<section>
+					What does it take to build a navigation framework?
+					<p class="fragment">Especially in Compose</p>
+				</section>
+				<section>
+					<div class="screen" onmouseover="bindMenu(this, true)">
+						<div class="tab-container" data-index="0">
+							<div class="tab-container-inner animate">
+								<div class="tab-content"><i class="fa-solid fa-house"></i></div>
+								<div class="tab-content"><i class="fa-solid fa-search"></i></div>
+								<div class="tab-content"><i class="fa-solid fa-user"></i></div>
+							</div>
+						</div>
+						<nav>
+							<a class="menu-item selected">
+								<i class="fa-solid fa-house"></i>
+							</a>
+							<a class="menu-item">
+								<i class="fa-solid fa-search"></i>
+							</a>
+							<a class="menu-item">
+								<i class="fa-solid fa-user"></i>
+							</a>
+						</nav>
+						<div class="system-nav">
+							<a class="back"><i class="fa-solid fa-play"></i></a>
+							<a><i class="fa-solid fa-circle"></i></a>
+							<a><i class="fa-solid fa-square"></i></a>
+						</div>
+					</div>
+				</section>
+				<section data-auto-animate>
+					<div style="display:flex; align-items: center;">
+						<pre data-id="setup-fn">
+							<code class="language-kotlin" data-trim data-line-numbers>
+								@Composable
+								fun Screen() {
+									Column(modifier = Modifier.fillMaxSize()) {
+										TabNavHost()
+										BottomMenu(
+											items = [Tab.HOME, /*...*/],
+										)
+									}
+								}
+							</code>
+						</pre>
+						<div style="flex-shrink: 0; flex-grow: 1;" class="screen">
+							<div class="tab-container" data-index="0">
+							</div>
+							<nav>
+								<a class="menu-item selected">
+									<i class="fa-solid fa-house"></i>
+								</a>
+								<a class="menu-item">
+									<i class="fa-solid fa-search"></i>
+								</a>
+								<a class="menu-item">
+									<i class="fa-solid fa-user"></i>
+								</a>
+							</nav>
+							<div class="system-nav">
+								<a class="back"><i class="fa-solid fa-play"></i></a>
+								<a><i class="fa-solid fa-circle"></i></a>
+								<a><i class="fa-solid fa-square"></i></a>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="setup-fn">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							@Composable
+							fun Screen() {
+								Column(modifier = Modifier.fillMaxSize()) {
+									TabNavHost()
+									BottomMenu(
+										items = [Tab.HOME, /*...*/],
+									)
+								}
+							}
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="setup-fn">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							@Composable
+							fun Screen() {
+								val tabNavViewModel: TabNavViewModel = viewModel()
+								Column(modifier = Modifier.fillMaxSize()) {
+									TabNavHost()
+									BottomMenu(
+										items = [Tab.HOME, /*...*/],
+									)
+								}
+							}
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="setup-fn">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							@Composable
+							fun Screen() {
+								val tabNavViewModel: TabNavViewModel = viewModel()
+								Column(modifier = Modifier.fillMaxSize()) {
+									TabNavHost(
+										viewModel = tabNavViewModel
+									)
+									BottomMenu(
+										items = [Tab.HOME, /*...*/],
+									)
+								}
+							}
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="setup-fn">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							@Composable
+							fun Screen() {
+								val tabNavViewModel: TabNavViewModel = viewModel()
+								Column(modifier = Modifier.fillMaxSize()) {
+									TabNavHost(
+										viewModel = tabNavViewModel
+									)
+									BottomMenu(
+										items = [Tab.HOME, /*...*/],
+										selectedItem = tabNavViewModel.current
+									)
+								}
+							}
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="setup-fn">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							@Composable
+							fun Screen() {
+								val tabNavViewModel: TabNavViewModel = viewModel()
+								Column(modifier = Modifier.fillMaxSize()) {
+									TabNavHost(
+										viewModel = tabNavViewModel
+									)
+									BottomMenu(
+										items = [Tab.HOME, /*...*/],
+										selectedItem = tabNavViewModel.current,
+										onItemSelected = { tab -> 
+											tabNavViewModel.goToTab(tab)
+										}
+									)
+								}
+							}
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="tab-nav-host">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							@Composable
+							fun TabNavHost(
+								viewModel: TabNavViewModel,
+							) {
+							}
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="tab-nav-host">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							@Composable
+							fun TabNavHost(
+								viewModel: TabNavViewModel,
+							) {
+								val current = viewModel.current
+							}
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="tab-nav-host">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							@Composable
+							fun TabNavHost(
+								viewModel: TabNavViewModel,
+							) {
+								val current = viewModel.current
+								// draw the content corresponding to the `current` tab
+							}
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="tab-nav-host">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							@Composable
+							fun TabNavHost(
+								viewModel: TabNavViewModel,
+								graph: TabGraph,
+							) {
+								val current = viewModel.current
+								// draw the content corresponding to the `current` tab
+							}
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="tab-nav-host">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							@Composable
+							fun TabNavHost(
+								viewModel: TabNavViewModel,
+								graph: TabGraph,
+							) {
+								val current = viewModel.current
+								// draw the content corresponding to the `current` tab
+								val content = graph.getContentComposable(current)
+								content()
+							}
+						</code>
+					</pre>
+				</section>
+				<section>
+					Let's provide a good API for <code>TabGraph</code>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="tab-graph">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							class TabGraph(
+							)
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="tab-graph">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							class TabGraph(
+							)
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="tab-graph">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							class TabGraph(
+								val tabToContentMap: Map&lt;String, @Composable () -&gt; Unit&gt;,
+							)
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="tab-graph">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							class TabGraph(
+								val tabToContentMap: Map&lt;String, @Composable () -&gt; Unit&gt;,
+								val defaultTab: String,
+							)
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="tab-graph">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							class TabGraph(
+								val tabToContentMap: Map&lt;String, @Composable () -&gt; Unit&gt;,
+								val defaultTab: String,
+							)
+							
+							class TabGraphBuilder() {
+								fun tab(
+									name: String,
+									isDefault: Boolean = false,
+									content: @Composable () -&gt; Unit,
+							) {
+									/*... */
+								}
+							}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<pre>
+						<code class="language-kotlin" data-trim data-line-numbers>
+							@Composable
+							fun TabNavHost(
+								viewModel: TabNavViewModel,
+								builder: TabNavGraphBuilder.() -> Unit
+							) {
+							}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<pre>
+						<code class="language-kotlin" data-trim data-line-numbers>
+							TabNavHost() {
+								tab(Tab.HOME, isDefault = true) {
+									HomeTabUI()
+								}
+								
+								tab(Tab.Search) {
+									SearchTabUI()
+								}
+
+								tab(Tab.Profile) {
+									ProfileTabUI()
+								}
+							}
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="tab-nav-host-ov">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							@Composable
+							fun TabNavHost(
+								viewModel: TabNavViewModel,
+								builder: TabNavGraphBuilder.() -> Unit,
+							) {
+							}
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="tab-nav-host-ov">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							@Composable
+							fun TabNavHost(
+								viewModel: TabNavViewModel,
+								builder: TabNavGraphBuilder.() -> Unit,
+							) {
+								val graph = remember(builder) { builder.build() }
+								TabNavHost(viewModel, graph)
+							}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<div style="display:flex; align-items: center;">
+						<pre data-id="setup-fn">
+							<code class="language-kotlin" data-trim data-line-numbers>
+								@Composable
+								fun Screen() {
+									val viewModel: TabNavViewModel = viewModel()
+
+									Column(modifier = Modifier.fillMaxSize()) {
+										TabNavHost(viewModel) { /*...*/ }
+
+										BottomMenu(
+											items = [Tab.HOME, /*...*/],
+											selectedTab = viewModel.current
+											onItemSelected = {tab -&gt; viewModel.goToTab(tab)}
+										)
+									}
+								}
+							</code>
+						</pre>
+						<div style="flex-shrink: 0; flex-grow: 1;" class="screen" onmouseover="bindMenu(this, false)">
+							<div class="tab-container" data-index="0">
+								<div class="tab-container-inner">
+									<div class="tab-content"><i class="fa-solid fa-house"></i></div>
+									<div class="tab-content"><i class="fa-solid fa-search"></i></div>
+									<div class="tab-content"><i class="fa-solid fa-user"></i></div>
+								</div>
+							</div>
+							<nav>
+								<a class="menu-item selected">
+									<i class="fa-solid fa-house"></i>
+								</a>
+								<a class="menu-item">
+									<i class="fa-solid fa-search"></i>
+								</a>
+								<a class="menu-item">
+									<i class="fa-solid fa-user"></i>
+								</a>
+							</nav>
+							<div class="system-nav">
+								<a class="back"><i class="fa-solid fa-play"></i></a>
+								<a><i class="fa-solid fa-circle"></i></a>
+								<a><i class="fa-solid fa-square"></i></a>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="tab-nav-host-anim">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							val content = graph.getContentComposable(current)
+							content()
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="tab-nav-host-anim">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							AnimatedContent(
+								state = current,
+							) { it -> 
+								val content = graph.getContentComposable(it)
+								content()
+							}
+						</code>
+					</pre>
+				</section>
+				<section>
+					<div style="display:flex; align-items: center;">
+						<pre data-id="setup-fn">
+							<code class="language-kotlin" data-trim data-line-numbers>
+								@Composable
+								fun Screen() {
+									val viewModel: TabNavViewModel = viewModel()
+
+									Column(modifier = Modifier.fillMaxSize()) {
+										TabNavHost(viewModel) { /*...*/ }
+
+										BottomMenu(
+											items = [Tab.HOME, /*...*/],
+											selectedTab = viewModel.current
+											onItemSelected = {tab -&gt; viewModel.goToTab(tab)}
+										)
+									}
+								}
+							</code>
+						</pre>
+						<div style="flex-shrink: 0; flex-grow: 1;" class="screen" onmouseover="bindMenu(this, false)">
+							<div class="tab-container" data-index="0">
+								<div class="tab-container-inner animate">
+									<div class="tab-content"><i class="fa-solid fa-house"></i></div>
+									<div class="tab-content"><i class="fa-solid fa-search"></i></div>
+									<div class="tab-content"><i class="fa-solid fa-user"></i></div>
+								</div>
+							</div>
+							<nav>
+								<a class="menu-item selected">
+									<i class="fa-solid fa-house"></i>
+								</a>
+								<a class="menu-item">
+									<i class="fa-solid fa-search"></i>
+								</a>
+								<a class="menu-item">
+									<i class="fa-solid fa-user"></i>
+								</a>
+							</nav>
+							<div class="system-nav">
+								<a class="back"><i class="fa-solid fa-play"></i></a>
+								<a><i class="fa-solid fa-circle"></i></a>
+								<a><i class="fa-solid fa-square"></i></a>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section>
+					Are we done?
+				</section>
+				<section>
+					Key Aspects of a navigation framework
+					<div class="box fragment">Stack</div>
+					<div class="box fragment">Scope</div>
+					<div class="box fragment">Lifecycle</div>
+					<p class="fragment">
+						<img width="84px;" src="https://4.bp.blogspot.com/-NnAkV5vpYuw/XNMYF4RtLvI/AAAAAAAAI70/kdgLm3cnTO4FB4rUC0v9smscN3zHJPlLgCLcBGAs/s1600/Jetpack_logo%2B%25282%2529.png" style="margin: 0 12px;"> <br> to the rescue
+					</p>
+				</section>
+				<section>
+					<a href="https://developer.android.com/jetpack/compose/compositionlocal"><code>CompositionLocal</code></a>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="composition-local">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							@Composable
+							fun ThemesDemo() {
+								Column {
+									MaterialTheme(colors = lightColors) {
+										DemoUI() // appears in light theme
+									}
+									MaterialTheme(colors = darkColors) {
+										DemoUI() // appears in dark theme
+									}
+								}
+							}
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="composition-local">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							@Composable
+							fun ThemesDemo() {
+								Column {
+									CompositionLocalProvider(LocalColors provides lightColors) {
+										DemoUI() // appears in light theme
+									}
+									CompositionLocalProvider(LocalColors provides darkColors) {
+										DemoUI() // appears in dark theme
+									}
+								}
+							}
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="composition-local">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							@Composable
+							fun ThemesDemo() {
+								Column {
+									CompositionLocalProvider(LocalColors provides lightColors) {
+										DemoUI() // appears in light theme
+									}
+									CompositionLocalProvider(LocalColors provides darkColors) {
+										DemoUI() // appears in dark theme
+									}
+								}
+							}
+
+							/* Using LocalColors */
+							val buttonBgColor = LocalColors.current.primary
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					Key Aspects of a navigation framework
+					<div data-id="stack" class="box">Stack</div>
+					<div class="box">Scope</div>
+					<div class="box">Lifecycle</div>
+				</section>
+				<section data-auto-animate>
+					<div data-id="stack" class="box">Stack</div>
+					<p class="fragment">
+						<img width="84px;" src="https://4.bp.blogspot.com/-NnAkV5vpYuw/XNMYF4RtLvI/AAAAAAAAI70/kdgLm3cnTO4FB4rUC0v9smscN3zHJPlLgCLcBGAs/s1600/Jetpack_logo%2B%25282%2529.png" style="margin: 0 12px;"/>
+						<br>
+						<code class="fragment blue">OnBackPressedDispatcherOwner</code><br>
+						<code class="fragment blue">LocalOnBackPressedDispatcherOwner</code>
+					</p>
+				</section>
+				<section data-auto-animate>
+					<div data-id="stack" class="box">Stack</div>
+					<p>
+						<img width="84px;" src="https://4.bp.blogspot.com/-NnAkV5vpYuw/XNMYF4RtLvI/AAAAAAAAI70/kdgLm3cnTO4FB4rUC0v9smscN3zHJPlLgCLcBGAs/s1600/Jetpack_logo%2B%25282%2529.png" style="margin: 0 12px;"/>
+						<br>
+						<code class="blue">BackHandler</code>
+					</p>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="back-handler">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							@Composable
+							fun TabNavHost(
+								viewModel: TabNavViewModel,
+								graph: TabGraph
+							) {
+								
+								/* draw current tab content */
+							}
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="back-handler">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							@Composable
+							fun TabNavHost(
+								viewModel: TabNavViewModel,
+								graph: TabGraph
+							) {
+								BackHandler(enabled = viewModel.canGoBack()) {
+									viewModel.goBack()
+								}
+								
+								/* draw current tab content */
+							}
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					Key Aspects of a navigation framework
+					<div data-id="stack" class="box">Stack</div>
+					<div data-id="scope" class="box">Scope</div>
+					<div data-id="lifeycle" class="box">Lifecycle</div>
+				</section>
+				<section data-auto-animate>
+					Key Aspects of a navigation framework
+					<div data-id="stack" class="box blue">Stack</div>
+					<div data-id="scope" class="box">Scope</div>
+					<div data-id="lifeycle" class="box">Lifecycle</div>
+				</section>
+				<section data-auto-animate>
+					<div data-id="scope" class="box">Scope</div>
+					<p class="fragment">
+						<img width="84px;" src="https://4.bp.blogspot.com/-NnAkV5vpYuw/XNMYF4RtLvI/AAAAAAAAI70/kdgLm3cnTO4FB4rUC0v9smscN3zHJPlLgCLcBGAs/s1600/Jetpack_logo%2B%25282%2529.png" style="margin: 0 12px;"/>
+						<br>
+						<code class="fragment blue">ViewModelStoreOwner</code><br>
+						<code class="fragment blue">LocalViewModelStoreOwner</code><br>
+						<code class="fragment blue">SaveableStateRegistry</code><br>
+						<code class="fragment blue">LocalSaveableStateRegistry</code>
+					</p>
+				</section>
+				<section data-auto-animate>
+					<div data-id="scope" class="box">Scope</div>
+					<p class="">
+						<img width="84px;" src="https://4.bp.blogspot.com/-NnAkV5vpYuw/XNMYF4RtLvI/AAAAAAAAI70/kdgLm3cnTO4FB4rUC0v9smscN3zHJPlLgCLcBGAs/s1600/Jetpack_logo%2B%25282%2529.png" style="margin: 0 12px;"/>
+						<br>
+						<code class=" blue">ViewModelStoreOwner</code><br>
+						<code class=" blue">LocalViewModelStoreOwner</code><br>
+						<code class=" blue">SaveableStateHolder</code><br>
+						<code class=" blue">rememberSaveableStateHolder()</code>
+					</p>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="scope-wrappers">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							/* TabNavHost */
+
+							graph.getContent(viewModel.current).invoke()
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="scope-wrappers">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							/* TabNavHost */
+
+							val current = viewModel.current
+							CompositionLocalProvider(
+							) {
+								graph.getContent(current).invoke()
+							}
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="scope-wrappers">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							/* TabNavHost */
+
+							val current = viewModel.current
+							val vmStoreOwner = viewModel.getVMStoreOwnerFor(current)
+							CompositionLocalProvider(
+								LocalViewModelStoreOwner provides vmStoreOwner
+							) {
+								graph.getContent(current).invoke()
+							}
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="scope-wrappers">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							/* TabNavHost */
+							val saveableStateHolder = rememberSaveableStateHolder()
+
+							val current = viewModel.current
+							val vmStoreOwner = viewModel.getVMStoreOwnerFor(current)
+							CompositionLocalProvider(
+								LocalViewModelStoreOwner provides vmStoreOwner
+							) {
+								saveableStateHolder.SaveableStateProvider(key = current) {
+									graph.getContent(current).invoke()
+								}
+							}
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					Key Aspects of a navigation framework
+					<div data-id="stack" class="box blue">Stack</div>
+					<div data-id="scope" class="box">Scope</div>
+					<div data-id="lifeycle" class="box">Lifecycle</div>
+				</section>
+				<section data-auto-animate>
+					Key Aspects of a navigation framework
+					<div data-id="stack" class="box blue">Stack</div>
+					<div data-id="scope" class="box blue">Scope</div>
+					<div data-id="lifeycle" class="box">Lifecycle</div>
+				</section>
+				<section data-auto-animate>
+					<div data-id="lifeycle" class="box">Lifecycle</div>
+					<p class="fragment">
+						<img width="84px;" src="https://4.bp.blogspot.com/-NnAkV5vpYuw/XNMYF4RtLvI/AAAAAAAAI70/kdgLm3cnTO4FB4rUC0v9smscN3zHJPlLgCLcBGAs/s1600/Jetpack_logo%2B%25282%2529.png" style="margin: 0 12px;"/>
+						<br>
+						<code class="fragment blue">LifecycleOwner</code><br>
+						<code class="fragment blue">LocalLifeCycleOwner</code>
+					</p>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="scope-wrappers">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							/* TabNavHost */
+							val saveableStateHolder = rememberSaveableStateHolder()
+
+							val current = viewModel.current
+							val vmStoreOwner = viewModel.getVMStoreOwnerFor(current)
+							CompositionLocalProvider(
+								LocalViewModelStoreOwner provides vmStoreOwner,
+							) {
+								saveableStateHolder.SaveableStateProvider(key = current) {
+									graph.getContent(current).invoke()
+								}
+							}
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="scope-wrappers">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							/* TabNavHost */
+							val saveableStateHolder = rememberSaveableStateHolder()
+
+							val current = viewModel.current
+							val vmStoreOwner = viewModel.getVMStoreOwnerFor(current)
+							val lifecycleOwner = viewModel.getLifecycleOwnerFor(current)
+							CompositionLocalProvider(
+								LocalViewModelStoreOwner provides vmStoreOwner,
+								LocalLifeCycleOwner provides lifecycleOwner,
+							) {
+								saveableStateHolder.SaveableStateProvider(key = current) {
+									graph.getContent(current).invoke()
+								}
+							}
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="tab-entry">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							class TabEntry(
+								val name: String,
+							)
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="tab-entry">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							class TabEntry(
+								val name: String,
+							): ViewModelStoreOwner, LifecycleOwner
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="scope-wrappers">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							/* TabNavHost */
+							val saveableStateHolder = rememberSaveableStateHolder()
+
+							val current = viewModel.current
+							val vmStoreOwner = viewModel.getVMStoreOwnerFor(current)
+							val lifecycleOwner = viewModel.getLifecycleOwnerFor(current)
+							CompositionLocalProvider(
+								LocalViewModelStoreOwner provides vmStoreOwner,
+								LocalLifeCycleOwner provides lifecycleOwner,
+							) {
+								saveableStateHolder.SaveableStateProvider(key = current) {
+									graph.getContent(current).invoke()
+								}
+							}
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="scope-wrappers">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							/* TabNavHost */
+							val saveableStateHolder = rememberSaveableStateHolder()
+
+							val current = viewModel.currentEntry
+							CompositionLocalProvider(
+								LocalViewModelStoreOwner provides current,
+								LocalLifeCycleOwner provides current,
+							) {
+								saveableStateHolder.SaveableStateProvider(key = current.name) {
+									graph.getContent(current.name).invoke()
+								}
+							}
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					Key Aspects of a navigation framework
+					<div data-id="stack" class="box blue">Stack</div>
+					<div data-id="scope" class="box blue">Scope</div>
+					<div data-id="lifeycle" class="box">Lifecycle</div>
+				</section>
+				<section data-auto-animate>
+					Key Aspects of a navigation framework
+					<div data-id="stack" class="box blue">Stack</div>
+					<div data-id="scope" class="box blue">Scope</div>
+					<div data-id="lifeycle" class="box blue">Lifecycle</div>
+				</section>
+				<section>
+					<div class="screen" onmouseover="bindMenu(this, true)">
+						<div class="tab-container" data-index="0">
+							<div class="tab-container-inner animate">
+								<div class="tab-content"><i class="fa-solid fa-house"></i></div>
+								<div class="tab-content"><i class="fa-solid fa-search"></i></div>
+								<div class="tab-content"><i class="fa-solid fa-user"></i></div>
+							</div>
+						</div>
+						<nav>
+							<a class="menu-item selected">
+								<i class="fa-solid fa-house"></i>
+							</a>
+							<a class="menu-item">
+								<i class="fa-solid fa-search"></i>
+							</a>
+							<a class="menu-item">
+								<i class="fa-solid fa-user"></i>
+							</a>
+						</nav>
+						<div class="system-nav">
+							<a class="back"><i class="fa-solid fa-play"></i></a>
+							<a><i class="fa-solid fa-circle"></i></a>
+							<a><i class="fa-solid fa-square"></i></a>
+						</div>
+					</div>
+				</section>
+				<section>
+					<p style="font-size: 2em;">🐘</p>
+					<div class="fragment" style="display:flex; justify-content:center; align-items:center;">
+						<img width="48px;" style="flex-shrink:0;" src="https://4.bp.blogspot.com/-NnAkV5vpYuw/XNMYF4RtLvI/AAAAAAAAI70/kdgLm3cnTO4FB4rUC0v9smscN3zHJPlLgCLcBGAs/s1600/Jetpack_logo%2B%25282%2529.png" style="margin: 0 12px;">
+						<p class="small"><code>androidx.navigation:navigation-compose</code></p>
+					</div>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="official-bottom-nav">
+						<code class="small language-kotlin" data-trim data-line-numbers>
+							/* bottom nav onClick */
+							navController.navigate(screen.route) {
+								// Pop up to the start destination of the graph to
+								// avoid building up a large stack of destinations
+								// on the back stack as users select items
+								popUpTo(navController.graph.findStartDestination().id) {
+									saveState = true
+								}
+								// Avoid multiple copies of the same destination when
+								// reselecting the same item
+								launchSingleTop = true
+								// Restore state when reselecting a previously selected item
+								restoreState = true
+							}
+						</code>
+					</pre>
+					<a data-id="link" href="https://developer.android.com/jetpack/compose/navigation#bottom-nav" style="font-size: 0.6em;" target="blank">d.android.com/jetpack/compose/navigation#bottom-nav</a>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="official-bottom-nav">
+						<code class="small language-kotlin" data-trim data-line-numbers>
+							/* bottom nav onClick */
+							navController.navigate(screen.route) {
+								popUpTo(navController.graph.findStartDestination().id) {
+									saveState = true
+								}
+
+								launchSingleTop = true
+								restoreState = true
+							}
+						</code>
+					</pre>
+					<a data-id="link" href="https://developer.android.com/jetpack/compose/navigation#bottom-nav" style="font-size: 0.6em;" target="blank">d.android.com/jetpack/compose/navigation#bottom-nav</a>
+				</section>
+				<section data-auto-animate>
+					<a data-id="link" href="https://developer.android.com/jetpack/compose/navigation" style="font-size: 0.6em;" target="blank">d.android.com/jetpack/compose/navigation</a>
+					<p>Will likely work for most of us,<br>most of the time</p>
+					<p class="fragment">And is likely <b>NOT</b> going to work for most of us,<br>some of the time</p>
+				</section>
+				<section>
+					<p>Navigation, most of the time, is orthogonal to the core logic of the UI</p>
+					<div style="display: flex; justify-content: center; align-items: center;" class="fragment">
+						<div class="box inline">UI</div>
+						<p><i class="fa-solid fa-arrow-right-long"></i></p>
+						<div class="box inline">NavFramework</div>
+					</div>
+				</section>
+				<section data-auto-animate>
+					<p data-id="main-logic">But, some of the time, navigation is very much the main logic of the UI</p>
+					<div style="display: flex; justify-content: center; align-items: center;" class="fragment" data-id="logic-flow">
+						<div class="box inline" data-id="viewmodel">ViewModel</div>
+						<p><i class="fa-solid fa-arrow-right-arrow-left"></i></p>
+						<div class="box inline" data-id="ui">UI</div>
+						<p><i class="fa-solid fa-arrow-right-arrow-left"></i></p>
+						<div class="box inline" data-id="nav">NavFramework</div>
+					</div>
+					<p class="fragment">🙅</p>
+				</section>
+				<section data-auto-animate>
+					<p data-id="main-logic">But, some of the time, navigation is very much the main logic of the UI</p>
+					<div style="display: flex; justify-content: center; align-items: center;" data-id="logic-flow">
+						<div class="box inline" data-id="viewmodel">ViewModel</div>
+						<p><i class="fa-solid fa-arrow-right-arrow-left"></i></p>
+						<div class="box inline" data-id="ui">UI</div>
+					</div>
+					<p>👍</p>
+				</section>
+				<section data-auto-animate>
+					<p data-id="punch-line">The cost to <br><b data-id="takeaway">Take control of navigation in our apps</b><br> is</p>
+					<ul>
+						<li class="fragment">Lower because of <img width="60px;" src="https://4.bp.blogspot.com/-NnAkV5vpYuw/XNMYF4RtLvI/AAAAAAAAI70/kdgLm3cnTO4FB4rUC0v9smscN3zHJPlLgCLcBGAs/s1600/Jetpack_logo%2B%25282%2529.png" style="margin: 0 12px;" /></li>
+						<li class="fragment">Even lower because of compose</li>
+					</ul>
+					<p class="fragment">And our apps are only getting more complicated</p>
+				</section>
+				<section data-auto-animate>
+					<p data-id="punch-line">It's time to <br><b data-id="takeaway">Take control of navigation in our apps</b></p>
+				</section>
+				<section>🤔❓🙋‍♀️</section>
+				<section>
+					<p>Thank you 🙏</p>
+					<div class="card">
+						<div class="hotstar">
+							<img src="https://tech.hotstar.com/images/D+H_Tech.png" />
+						</div>
+						<div class="manideep">
+							<p style="margin-bottom:0;">MANIDEEP POLIREDDI</p>
+							<p class="social" style="margin-top: 8px;">
+								<a href="https://twitter.com/okmanideep"><i class="fa-brands fa-twitter"></i></a>
+								<a href="https://github.com/okmanideep"><i class="fa-brands fa-github"></i></a>
+						</div>
+
+					</div>
+				</section>
 		</div>
+	</div>
 
 		<script type="text/javascript">
-			{{ INLINE_JS }}
+			{{INLINE_JS}}
 		</script>
+
+		<!-- FONT AWESOME-->
+		<script src="https://kit.fontawesome.com/ed0d20bdb5.js" crossorigin="anonymous"></script>
 	</body>
+
 </html>

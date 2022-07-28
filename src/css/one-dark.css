@@ -365,22 +365,6 @@
   font-family: "Georgia", serif;
   font-style: italic;
 }
-.reveal .small {
-  font-size: 24px;
-}
-.reveal .blue {
-  color: #42affa;
-}
-.reveal .red {
-  color: #e06c75;
-}
-.reveal .box {
-  border: 2px solid white;
-  border-radius: 5px;
-  padding: 16px 0;
-  margin: 24px 32px;
-  background: #3a404b;
-}
 .reveal .slides section .fragment.highlight-blue.visible {
   color: #42affa;
 }
