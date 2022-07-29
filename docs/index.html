@@ -253,79 +253,9 @@
 					</pre>
 				</section>
 				<section>
-					Let's provide a good API for <code>TabGraph</code>
-				</section>
-				<section data-auto-animate>
-					<pre data-id="tab-graph">
-						<code class="language-kotlin" data-trim data-line-numbers>
-							class TabGraph(
-							)
-						</code>
-					</pre>
-				</section>
-				<section data-auto-animate>
-					<pre data-id="tab-graph">
-						<code class="language-kotlin" data-trim data-line-numbers>
-							class TabGraph(
-							)
-						</code>
-					</pre>
-				</section>
-				<section data-auto-animate>
-					<pre data-id="tab-graph">
-						<code class="language-kotlin" data-trim data-line-numbers>
-							class TabGraph(
-								val tabToContentMap: Map&lt;String, @Composable () -&gt; Unit&gt;,
-							)
-						</code>
-					</pre>
-				</section>
-				<section data-auto-animate>
-					<pre data-id="tab-graph">
-						<code class="language-kotlin" data-trim data-line-numbers>
-							class TabGraph(
-								val tabToContentMap: Map&lt;String, @Composable () -&gt; Unit&gt;,
-								val defaultTab: String,
-							)
-						</code>
-					</pre>
-				</section>
-				<section data-auto-animate>
-					<pre data-id="tab-graph">
-						<code class="language-kotlin" data-trim data-line-numbers>
-							class TabGraph(
-								val tabToContentMap: Map&lt;String, @Composable () -&gt; Unit&gt;,
-								val defaultTab: String,
-							)
-							
-							class TabGraphBuilder() {
-								fun tab(
-									name: String,
-									isDefault: Boolean = false,
-									content: @Composable () -&gt; Unit,
-							) {
-									/*... */
-								}
-							}
-						</code>
-					</pre>
-				</section>
-				<section>
 					<pre>
 						<code class="language-kotlin" data-trim data-line-numbers>
-							@Composable
-							fun TabNavHost(
-								viewModel: TabNavViewModel,
-								builder: TabNavGraphBuilder.() -> Unit
-							) {
-							}
-						</code>
-					</pre>
-				</section>
-				<section>
-					<pre>
-						<code class="language-kotlin" data-trim data-line-numbers>
-							TabNavHost() {
+							TabNavHost(viewModel) {
 								tab(Tab.HOME, isDefault = true) {
 									HomeTabUI()
 								}
@@ -354,6 +284,26 @@
 					</pre>
 				</section>
 				<section data-auto-animate>
+					<pre data-id="tab-graph">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							class TabGraph(
+								val tabToContentMap: Map&lt;String, @Composable () -&gt; Unit&gt;,
+								val defaultTab: String,
+							)
+							
+							class TabGraphBuilder() {
+								fun tab(
+									name: String,
+									isDefault: Boolean = false,
+									content: @Composable () -&gt; Unit,
+								) {
+									/*... */
+								}
+							}
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
 					<pre data-id="tab-nav-host-ov">
 						<code class="language-kotlin" data-trim data-line-numbers>
 							@Composable
@@ -361,7 +311,21 @@
 								viewModel: TabNavViewModel,
 								builder: TabNavGraphBuilder.() -> Unit,
 							) {
-								val graph = remember(builder) { builder.build() }
+							}
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="tab-nav-host-ov">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							@Composable
+							fun TabNavHost(
+								viewModel: TabNavViewModel,
+								builder: TabNavGraphBuilder.() -> Unit,
+							) {
+								val graph = remember(builder) {
+									TabNavGraphBuilder().apply(builder).build() 
+								}
 								TabNavHost(viewModel, graph)
 							}
 						</code>
@@ -381,7 +345,9 @@
 										BottomMenu(
 											items = [Tab.HOME, /*...*/],
 											selectedTab = viewModel.current
-											onItemSelected = {tab -&gt; viewModel.goToTab(tab)}
+											onItemSelected = {
+												tab -&gt; viewModel.goToTab(tab)
+											}
 										)
 									}
 								}
@@ -448,7 +414,9 @@
 										BottomMenu(
 											items = [Tab.HOME, /*...*/],
 											selectedTab = viewModel.current
-											onItemSelected = {tab -&gt; viewModel.goToTab(tab)}
+											onItemSelected = {
+												tab -&gt; viewModel.goToTab(tab)
+											}
 										)
 									}
 								}
