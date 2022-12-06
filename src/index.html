@@ -472,100 +472,56 @@
 					Are we done?
 				</section>
 				<section>
-					<div style="display:flex; align-items: center;">
-						<pre data-id="setup-fn">
-							<code class="language-kotlin" data-trim data-line-numbers>
-								@Composable
-								fun Screen() {
-									val viewModel: TabNavViewModel = viewModel()
-
-									Column {
-										TabNavHost(viewModel) { /*...*/ }
-
-										BottomMenu(
-											items = [Tab.HOME, /*...*/],
-											selectedTab = viewModel.current
-											onItemSelected = {
-												tab -&gt; viewModel.goToTab(tab)
-											}
-										)
-									}
-								}
-							</code>
-						</pre>
-						<div style="flex-shrink: 0; flex-grow: 1;" class="screen" onmouseover="bindMenu(this, false)">
-							<div class="tab-container" data-index="0">
-								<div class="tab-container-inner animate">
-									<div class="tab-content"><i class="fa-solid fa-house"></i></div>
-									<div class="tab-content"><i class="fa-solid fa-search"></i></div>
-									<div class="tab-content"><i class="fa-solid fa-user"></i></div>
-								</div>
+					<div class="screen" onmouseover="bindMenu(this, false)">
+						<div class="tab-container" data-index="0">
+							<div class="tab-container-inner animate">
+								<div class="tab-content"><i class="fa-solid fa-house"></i></div>
+								<div class="tab-content"><i class="fa-solid fa-search"></i></div>
+								<div class="tab-content"><i class="fa-solid fa-user"></i></div>
 							</div>
-							<nav>
-								<a class="menu-item selected">
-									<i class="fa-solid fa-house"></i>
-								</a>
-								<a class="menu-item">
-									<i class="fa-solid fa-search"></i>
-								</a>
-								<a class="menu-item">
-									<i class="fa-solid fa-user"></i>
-								</a>
-							</nav>
-							<div class="system-nav">
-								<a class="back"><i class="fa-solid fa-play"></i></a>
-								<a><i class="fa-solid fa-circle"></i></a>
-								<a><i class="fa-solid fa-square"></i></a>
-							</div>
+						</div>
+						<nav>
+							<a class="menu-item selected">
+								<i class="fa-solid fa-house"></i>
+							</a>
+							<a class="menu-item">
+								<i class="fa-solid fa-search"></i>
+							</a>
+							<a class="menu-item">
+								<i class="fa-solid fa-user"></i>
+							</a>
+						</nav>
+						<div class="system-nav">
+							<a class="back"><i class="fa-solid fa-play"></i></a>
+							<a><i class="fa-solid fa-circle"></i></a>
+							<a><i class="fa-solid fa-square"></i></a>
 						</div>
 					</div>
 				</section>
 				<section>
-					<div style="display:flex; align-items: center;">
-						<pre data-id="setup-fn">
-							<code class="language-kotlin" data-trim data-line-numbers>
-								@Composable
-								fun Screen() {
-									val viewModel: TabNavViewModel = viewModel()
-
-									Column {
-										TabNavHost(viewModel) { /*...*/ }
-
-										BottomMenu(
-											items = [Tab.HOME, /*...*/],
-											selectedTab = viewModel.current
-											onItemSelected = {
-												tab -&gt; viewModel.goToTab(tab)
-											}
-										)
-									}
-								}
-							</code>
-						</pre>
-						<div style="flex-shrink: 0; flex-grow: 1;" class="screen" onmouseover="bindMenu(this, false)">
-							<div class="tab-container" data-index="0">
-								<div class="tab-container-inner animate">
-									<div class="tab-content"><i class="fa-solid fa-house"></i><p class="counter"/>1</div>
-									<div class="tab-content"><i class="fa-solid fa-search"></i><p class="counter"/></div>
-									<div class="tab-content"><i class="fa-solid fa-user"></i><p class="counter"/></div>
-								</div>
+					<div class="screen" onmouseover="bindMenu(this, false)">
+						<div class="tab-container" data-index="0">
+							<div class="tab-container-inner animate">
+								<div class="tab-content"><i class="fa-solid fa-house"></i><p class="counter"/>1</div>
+								<div class="tab-content"><i class="fa-solid fa-search"></i><p class="counter"/></div>
+								<div class="tab-content"><i class="fa-solid fa-user"></i><p class="counter"/></div>
 							</div>
-							<nav>
-								<a class="menu-item selected">
-									<i class="fa-solid fa-house"></i>
-								</a>
-								<a class="menu-item">
-									<i class="fa-solid fa-search"></i>
-								</a>
-								<a class="menu-item">
-									<i class="fa-solid fa-user"></i>
-								</a>
-							</nav>
-							<div class="system-nav">
-								<a class="back"><i class="fa-solid fa-play"></i></a>
-								<a><i class="fa-solid fa-circle"></i></a>
-								<a><i class="fa-solid fa-square"></i></a>
-							</div>
+						</div>
+						<nav>
+							<a class="menu-item selected">
+								<i class="fa-solid fa-house"></i>
+							</a>
+							<a class="menu-item">
+								<i class="fa-solid fa-search"></i>
+							</a>
+							<a class="menu-item">
+								<i class="fa-solid fa-user"></i>
+							</a>
+						</nav>
+						<div class="system-nav">
+							<a class="back"><i class="fa-solid fa-play"></i></a>
+							<a><i class="fa-solid fa-circle"></i></a>
+							<a><i class="fa-solid fa-square"></i></a>
 						</div>
 					</div>
 				</section>
@@ -689,6 +645,33 @@
 						</code>
 					</pre>
 				</section>
+				<section>
+					<div class="screen" onmouseover="bindMenu(this, true)">
+						<div class="tab-container" data-index="0">
+							<div class="tab-container-inner animate">
+								<div class="tab-content"><i class="fa-solid fa-house"></i></div>
+								<div class="tab-content"><i class="fa-solid fa-search"></i></div>
+								<div class="tab-content"><i class="fa-solid fa-user"></i></div>
+							</div>
+						</div>
+						<nav>
+							<a class="menu-item selected">
+								<i class="fa-solid fa-house"></i>
+							</a>
+							<a class="menu-item">
+								<i class="fa-solid fa-search"></i>
+							</a>
+							<a class="menu-item">
+								<i class="fa-solid fa-user"></i>
+							</a>
+						</nav>
+						<div class="system-nav">
+							<a class="back"><i class="fa-solid fa-play"></i></a>
+							<a><i class="fa-solid fa-circle"></i></a>
+							<a><i class="fa-solid fa-square"></i></a>
+						</div>
+					</div>
+				</section>
 				<section data-auto-animate>
 					Key Aspects of a navigation framework
 					<div data-id="stack" class="box">Stack</div>
@@ -777,6 +760,33 @@
 							}
 						</code>
 					</pre>
+				</section>
+				<section>
+					<div style="flex-shrink: 0; flex-grow: 1;" class="screen" onmouseover="bindMenu(this, false)">
+						<div class="tab-container" data-index="0">
+							<div class="tab-container-inner animate">
+								<div class="tab-content"><i class="fa-solid fa-house"></i><p class="counter" data-counter="home"/>1</div>
+								<div class="tab-content"><i class="fa-solid fa-search"></i><p class="counter" data-counter="search"/></div>
+								<div class="tab-content"><i class="fa-solid fa-user"></i><p class="counter" data-counter="profile"/></div>
+							</div>
+						</div>
+						<nav>
+							<a class="menu-item selected">
+								<i class="fa-solid fa-house"></i>
+							</a>
+							<a class="menu-item">
+								<i class="fa-solid fa-search"></i>
+							</a>
+							<a class="menu-item">
+								<i class="fa-solid fa-user"></i>
+							</a>
+						</nav>
+						<div class="system-nav">
+							<a class="back"><i class="fa-solid fa-play"></i></a>
+							<a><i class="fa-solid fa-circle"></i></a>
+							<a><i class="fa-solid fa-square"></i></a>
+						</div>
+					</div>
 				</section>
 				<section data-auto-animate>
 					Key Aspects of a navigation framework
@@ -909,9 +919,9 @@
 					<div class="screen" onmouseover="bindMenu(this, true)">
 						<div class="tab-container" data-index="0">
 							<div class="tab-container-inner animate">
-								<div class="tab-content"><i class="fa-solid fa-house"></i></div>
-								<div class="tab-content"><i class="fa-solid fa-search"></i></div>
-								<div class="tab-content"><i class="fa-solid fa-user"></i></div>
+								<div class="tab-content"><i class="fa-solid fa-house"></i><p class="counter" data-counter="home"/>1</div>
+								<div class="tab-content"><i class="fa-solid fa-search"></i><p class="counter" data-counter="search"/></div>
+								<div class="tab-content"><i class="fa-solid fa-user"></i><p class="counter" data-counter="profile"/></div>
 							</div>
 						</div>
 						<nav>

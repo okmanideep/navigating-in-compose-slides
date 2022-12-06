@@ -46,6 +46,7 @@
   text-align: center;
   padding: 12px;
   color: #ABB2BF;
+  transition: transform 100ms linear;
 }
 
 .screen nav a:hover {
@@ -54,6 +55,7 @@
 
 .screen nav a.selected {
   color: white;
+  transform: scale(1.2, 1.2)
 }
 
 
