@@ -15,12 +15,37 @@
 
 	<body>
 		<div class="reveal">
+			<!-- DEV FEST HEADER-->
+			<header class='hidden'>
+				<img src="/img/devfest-2022.png" />
+			</header>
+
+			<!-- Floating GDG RAIPUR LOGO-->
+			<footer>
+				<img src="/img/gdg-raipur.png" />
+			</footer>
+
 			<div class="slides">
-				<section>
-					🧭 Building a navigation framework in Compose
-					<p class="small">
-						<a href="https://twitter.com/okmanideep"><i class="fa-brands fa-twitter"></i> okmanideep</a>
-					</p>
+				<section class="title">
+
+					<div class="layout">
+						<div class="talk">
+							Take control of navigation in your <br>Android app
+							<br>
+							<p class="small" style="margin: 48px 0 0 0">
+								<a href="https://twitter.com/okmanideep"><i class="fa-brands fa-twitter"></i></a>
+								&nbsp;
+								<a style="color: #414141" href="https://github.com/okmanideep"><i class="fa-brands fa-github"></i></a>
+							</p>
+						</div>
+						<a class="author" href="https://twitter.com/okmanideep">
+							<img src="https://github.com/okmanideep.png" style="width: 100%;">
+							<div class="details">
+								Manideep Polireddi<br>
+								Sr Staff Engineer, Hotstar
+							</div>
+						</a>
+					</div>
 				</section>
 				<section>
 					What does it take to build a navigation framework?
@@ -59,7 +84,7 @@
 							<code class="language-kotlin" data-trim data-line-numbers>
 								@Composable
 								fun Screen() {
-									Column(modifier = Modifier.fillMaxSize()) {
+									Column {
 										TabNavHost()
 										BottomMenu(
 											items = [Tab.HOME, /*...*/],
@@ -95,7 +120,7 @@
 						<code class="language-kotlin" data-trim data-line-numbers>
 							@Composable
 							fun Screen() {
-								Column(modifier = Modifier.fillMaxSize()) {
+								Column {
 									TabNavHost()
 									BottomMenu(
 										items = [Tab.HOME, /*...*/],
@@ -111,7 +136,7 @@
 							@Composable
 							fun Screen() {
 								val tabNavViewModel: TabNavViewModel = viewModel()
-								Column(modifier = Modifier.fillMaxSize()) {
+								Column {
 									TabNavHost()
 									BottomMenu(
 										items = [Tab.HOME, /*...*/],
@@ -127,7 +152,7 @@
 							@Composable
 							fun Screen() {
 								val tabNavViewModel: TabNavViewModel = viewModel()
-								Column(modifier = Modifier.fillMaxSize()) {
+								Column {
 									TabNavHost(
 										viewModel = tabNavViewModel
 									)
@@ -145,7 +170,7 @@
 							@Composable
 							fun Screen() {
 								val tabNavViewModel: TabNavViewModel = viewModel()
-								Column(modifier = Modifier.fillMaxSize()) {
+								Column {
 									TabNavHost(
 										viewModel = tabNavViewModel
 									)
@@ -164,7 +189,7 @@
 							@Composable
 							fun Screen() {
 								val tabNavViewModel: TabNavViewModel = viewModel()
-								Column(modifier = Modifier.fillMaxSize()) {
+								Column {
 									TabNavHost(
 										viewModel = tabNavViewModel
 									)
@@ -333,7 +358,7 @@
 								fun Screen() {
 									val viewModel: TabNavViewModel = viewModel()
 
-									Column(modifier = Modifier.fillMaxSize()) {
+									Column {
 										TabNavHost(viewModel) { /*...*/ }
 
 										BottomMenu(
@@ -402,7 +427,7 @@
 								fun Screen() {
 									val viewModel: TabNavViewModel = viewModel()
 
-									Column(modifier = Modifier.fillMaxSize()) {
+									Column {
 										TabNavHost(viewModel) { /*...*/ }
 
 										BottomMenu(

@@ -1,10 +1,11 @@
+/* STYLES for this particular presentation */
 .reveal .small {
   font-size: 0.7em;
 }
 
 .reveal .box {
-  background: #353A45;
-  border: 2px solid white;
+  background: var(--r-raised-bg-color);
+  border: 2px solid var(--r-main-color);
   border-radius: 4px;
   padding: 12px;
   max-width: 420px;
@@ -16,7 +17,7 @@
 }
 
 .reveal .box.blue {
-  background: var(--r-link-color);
+  background: var(--r-link-color-hover);
 }
 
 .screen {
@@ -136,10 +137,11 @@ body {
   width: 350px;
   height: 200px;
   border-radius: 16px;
-  background: white;
+  background: var(--r-raised-bg-color);
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  box-shadow: 0px 0px 10px var(--r-shadow-color);
 }
 .card .hotstar {
   flex: 1 0;
@@ -179,4 +181,79 @@ body {
 }
 .card .manideep .social .fa-github {
   color: white;
+}
+
+/* GDG Raipur customizations */
+
+.reveal footer {
+  position: absolute;
+  bottom: 0em;
+  left: 0.4em;
+}
+.reveal footer img {
+  height: 64px;
+}
+
+.reveal header {
+  position: absolute;
+  background: #000;
+  padding: 16px 144px 16px 48px;
+  left: 0;
+  top: 48px;
+  box-shadow: 48px -48px 0px 0px var(--r-link-color);
+  transition: opacity 300ms ease-in-out;
+}
+
+.reveal header.hidden {
+  opacity: 0;
+}
+
+.reveal header img {
+  height: 120px;
+}
+
+.reveal section.title {
+  text-align: left;
+}
+
+section.title .layout {
+  display: flex
+}
+
+section.title .layout .talk {
+  flex: 1;
+  margin: 64px 0 0 0;
+}
+
+section.title .layout .author {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+}
+
+section.title .author img {
+  margin: 0;
+  max-width: none;/* reveal has some 95% crap */
+}
+
+section.title .author .details {
+  background: #000;
+  color: white;
+  width: 100%;
+  padding: 12px;
+  font-size: 18px;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 959px) {
+  section.title .layout .author {
+    display: none;
+  }
+  .reveal header {
+    display: none;
+  }
+  .reveal footer img {
+    height: 1em;
+  }
 }
