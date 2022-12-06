@@ -285,11 +285,11 @@
 									HomeTabUI()
 								}
 								
-								tab(Tab.Search) {
+								tab(Tab.SEARCH) {
 									SearchTabUI()
 								}
 
-								tab(Tab.Profile) {
+								tab(Tab.PROFILE) {
 									ProfileTabUI()
 								}
 							}
@@ -476,6 +476,104 @@
 				</section>
 				<section>
 					Are we done?
+				</section>
+				<section>
+					<div style="display:flex; align-items: center;">
+						<pre data-id="setup-fn">
+							<code class="language-kotlin" data-trim data-line-numbers>
+								@Composable
+								fun Screen() {
+									val viewModel: TabNavViewModel = viewModel()
+
+									Column {
+										TabNavHost(viewModel) { /*...*/ }
+
+										BottomMenu(
+											items = [Tab.HOME, /*...*/],
+											selectedTab = viewModel.current
+											onItemSelected = {
+												tab -&gt; viewModel.goToTab(tab)
+											}
+										)
+									}
+								}
+							</code>
+						</pre>
+						<div style="flex-shrink: 0; flex-grow: 1;" class="screen" onmouseover="bindMenu(this, false)">
+							<div class="tab-container" data-index="0">
+								<div class="tab-container-inner animate">
+									<div class="tab-content"><i class="fa-solid fa-house"></i></div>
+									<div class="tab-content"><i class="fa-solid fa-search"></i></div>
+									<div class="tab-content"><i class="fa-solid fa-user"></i></div>
+								</div>
+							</div>
+							<nav>
+								<a class="menu-item selected">
+									<i class="fa-solid fa-house"></i>
+								</a>
+								<a class="menu-item">
+									<i class="fa-solid fa-search"></i>
+								</a>
+								<a class="menu-item">
+									<i class="fa-solid fa-user"></i>
+								</a>
+							</nav>
+							<div class="system-nav">
+								<a class="back"><i class="fa-solid fa-play"></i></a>
+								<a><i class="fa-solid fa-circle"></i></a>
+								<a><i class="fa-solid fa-square"></i></a>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section>
+					<div style="display:flex; align-items: center;">
+						<pre data-id="setup-fn">
+							<code class="language-kotlin" data-trim data-line-numbers>
+								@Composable
+								fun Screen() {
+									val viewModel: TabNavViewModel = viewModel()
+
+									Column {
+										TabNavHost(viewModel) { /*...*/ }
+
+										BottomMenu(
+											items = [Tab.HOME, /*...*/],
+											selectedTab = viewModel.current
+											onItemSelected = {
+												tab -&gt; viewModel.goToTab(tab)
+											}
+										)
+									}
+								}
+							</code>
+						</pre>
+						<div style="flex-shrink: 0; flex-grow: 1;" class="screen" onmouseover="bindMenu(this, false)">
+							<div class="tab-container" data-index="0">
+								<div class="tab-container-inner animate">
+									<div class="tab-content"><i class="fa-solid fa-house"></i><p class="counter"/>1</div>
+									<div class="tab-content"><i class="fa-solid fa-search"></i><p class="counter"/></div>
+									<div class="tab-content"><i class="fa-solid fa-user"></i><p class="counter"/></div>
+								</div>
+							</div>
+							<nav>
+								<a class="menu-item selected">
+									<i class="fa-solid fa-house"></i>
+								</a>
+								<a class="menu-item">
+									<i class="fa-solid fa-search"></i>
+								</a>
+								<a class="menu-item">
+									<i class="fa-solid fa-user"></i>
+								</a>
+							</nav>
+							<div class="system-nav">
+								<a class="back"><i class="fa-solid fa-play"></i></a>
+								<a><i class="fa-solid fa-circle"></i></a>
+								<a><i class="fa-solid fa-square"></i></a>
+							</div>
+						</div>
+					</div>
 				</section>
 				<section>
 					Key Aspects of a navigation framework
@@ -7284,6 +7382,16 @@
         selectMenuItem(menuItems, index);
       });
     });
+    const counters = {};
+    const counterElements = element.querySelectorAll(".counter");
+    counterElements.forEach((element2) => {
+      const counterName = getCounterName(element2);
+      initializeCounter(counters, counterName);
+      subscribeToCounter(counters, counterName, element2);
+      element2.addEventListener("click", () => {
+        incrementCounter(counters, counterName);
+      });
+    });
     if (!initBack)
       return;
     const back = element.querySelector(".system-nav .back");
@@ -7306,6 +7414,35 @@
         item.classList.remove("selected");
       }
     });
+  }
+  function getCounterName(element) {
+    let counterName = element.getAttribute("data-counter");
+    if (!counterName) {
+      counterName = "default";
+    }
+    return counterName;
+  }
+  function initializeCounter(counters, name) {
+    if (counters[name] === void 0) {
+      counters[name] = {
+        count: 1,
+        elements: []
+      };
+    }
+  }
+  function subscribeToCounter(counters, name, element) {
+    const counter = counters[name];
+    element.innerHTML = counter.count;
+    counter.elements = [...counter.elements, element];
+    counters[name] = counter;
+  }
+  function incrementCounter(counters, name) {
+    const counter = counters[name];
+    counter.count = counter.count + 1;
+    counter.elements.forEach((element) => {
+      element.innerHTML = counter.count;
+    });
+    counters[name] = counter;
   }
   var bind_menu_default = bindMenu;
 

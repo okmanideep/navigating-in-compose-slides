@@ -3,8 +3,9 @@ function bindMenu(element, initBack) {
   if (isBinded) return;
 
   element.setAttribute("data-bind-menu", "true")
-
   const stack = []
+
+  // bind menu items to tab content
   const menuItems = element.querySelectorAll("nav a")
   const tabContainer = element.querySelector(".tab-container")
   menuItems.forEach((item, index) => {
@@ -18,6 +19,20 @@ function bindMenu(element, initBack) {
     })
   })
 
+  // bind counters
+  const counters = {}
+  const counterElements = element.querySelectorAll('.counter')
+  counterElements.forEach((element) => {
+    const counterName = getCounterName(element)
+    initializeCounter(counters, counterName)
+    subscribeToCounter(counters, counterName, element)
+
+    element.addEventListener("click", () => {
+      incrementCounter(counters, counterName)
+    })
+  })
+
+  // bind back button
   if (!initBack) return
   const back = element.querySelector(".system-nav .back")
   back.addEventListener("click", () => {
@@ -40,6 +55,39 @@ function selectMenuItem(items, index) {
       item.classList.remove("selected")
     }
   })
+}
+
+function getCounterName(element) {
+  let counterName = element.getAttribute("data-counter")
+  if (!counterName) {
+    counterName = "default"
+  }
+  return counterName
+}
+
+function initializeCounter(counters, name) {
+  if (counters[name] === undefined) {
+    counters[name] = {
+      count: 1,
+      elements: []
+    }
+  }
+}
+
+function subscribeToCounter(counters, name, element) {
+  const counter = counters[name]
+  element.innerHTML = counter.count
+  counter.elements = [...counter.elements, element]
+  counters[name] = counter
+}
+
+function incrementCounter(counters, name) {
+  const counter = counters[name]
+  counter.count = counter.count + 1
+  counter.elements.forEach(element => {
+    element.innerHTML = counter.count
+  })
+  counters[name] = counter
 }
 
 export default bindMenu
