@@ -228,14 +228,16 @@ section.title .layout .talk {
 }
 
 section.title .layout .author {
-  width: 320px;
   display: flex;
   flex-direction: column;
+  width: 320px;
   text-decoration: none;
 }
 
 section.title .author img {
   margin: 0;
+  width: 320px;
+  height: 320px;
   max-width: none;/* reveal has some 95% crap */
 }
 
