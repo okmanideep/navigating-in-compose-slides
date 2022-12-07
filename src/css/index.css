@@ -212,6 +212,9 @@ body {
 
 .reveal header img {
   width: 272px;
+  height: 120px;
+  object-fit: cover;
+  max-width: none;/* some reveal img 95% max width rule is messing up things */
 }
 
 .reveal section.title {
@@ -239,6 +242,7 @@ section.title .author img {
   width: 320px;
   height: 320px;
   max-width: none;/* reveal has some 95% crap */
+  background: #DAE6F0; /* picked from the image */
 }
 
 section.title .author .details {
