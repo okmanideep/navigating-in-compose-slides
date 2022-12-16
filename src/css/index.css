@@ -145,17 +145,18 @@ body {
   overflow: hidden;
   box-shadow: 0px 0px 10px var(--r-shadow-color);
 }
-.card .hotstar {
+.card .dp {
   flex: 1 0;
   display: flex;
   justify-content:center;
-  align-items: flex-end;
+  align-items: center;
 }
 
-.card .hotstar img {
-  height: 48px;
-  padding: 12px;
-  margin: 0;
+.card .dp img {
+  width: 64px;
+  height: 64px;
+  border-radius: 32px;
+  border: 1px solid var(--r-shadow-color);
 }
 
 .card .manideep {
@@ -252,6 +253,10 @@ section.title .author .details {
   padding: 12px;
   font-size: 18px;
   box-sizing: border-box;
+}
+
+section.title .author .details .dull {
+  color: #d7d7d7;
 }
 
 @media screen and (max-width: 959px) {
