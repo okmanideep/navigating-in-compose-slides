@@ -218,6 +218,11 @@ body {
   max-width: none;/* some reveal img 95% max width rule is messing up things */
 }
 
+.reveal header h3, .reveal header p {
+	color: white;
+	margin: 0;
+}
+
 .reveal section.title {
   text-align: left;
 }
