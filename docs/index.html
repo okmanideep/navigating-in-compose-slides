@@ -281,6 +281,15 @@
 				<section>
 					<pre>
 						<code class="language-kotlin" data-trim data-line-numbers>
+							class TabGraph(
+								val tabToContentMap: Map&lt;String, @Composable () -&gt; Unit&gt;,
+							) { /*...*/ }
+						</code>
+					</pre>
+				</section>
+				<section>
+					<pre>
+						<code class="language-kotlin" data-trim data-line-numbers>
 							TabNavHost(viewModel) {
 								tab(Tab.HOME, isDefault = true) {
 									HomeTabUI()
@@ -996,7 +1005,6 @@
 				<section data-auto-animate>
 					<a data-id="link" href="https://developer.android.com/jetpack/compose/navigation" style="font-size: 0.6em;" target="blank">d.android.com/jetpack/compose/navigation</a>
 					<p>Will likely work for most of us,<br>most of the time</p>
-					<p class="fragment">And is likely <b>NOT</b> going to work for most of us,<br>some of the time</p>
 				</section>
 				<section>
 					<p>Navigation, most of the time, is orthogonal to the core logic of the UI</p>
@@ -1007,7 +1015,12 @@
 					</div>
 				</section>
 				<section data-auto-animate>
-					<p data-id="main-logic">But, some of the time, navigation is very much the main logic of the UI</p>
+					<a data-id="link" href="https://developer.android.com/jetpack/compose/navigation" style="font-size: 0.6em;" target="blank">d.android.com/jetpack/compose/navigation</a>
+					<p>Will likely work for most of us,<br>most of the time</p>
+					<p class="fragment">But is likely <b>NOT</b> going to work for most of us,<br>some of the time</p>
+				</section>
+				<section data-auto-animate>
+					<p data-id="main-logic">Because, some of the time, navigation is very much the main logic of the UI</p>
 					<div style="display: flex; justify-content: center; align-items: center;" class="fragment" data-id="logic-flow">
 						<div class="box inline" data-id="viewmodel">ViewModel</div>
 						<p><i class="fa-solid fa-arrow-right-arrow-left"></i></p>
