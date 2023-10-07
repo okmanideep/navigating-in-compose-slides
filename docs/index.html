@@ -23,7 +23,7 @@
 		<div class="reveal">
 			<!-- DEV FEST HEADER-->
 			<header class='hidden'>
-				<h3>BLRDroid</h3>
+				<h3>BLRDROID</h3>
 				<p>October 2023</p>
 			</header>
 
@@ -291,7 +291,7 @@
 					<pre>
 						<code class="language-kotlin" data-trim data-line-numbers>
 							TabNavHost(viewModel) {
-								tab(Tab.HOME, isDefault = true) {
+								tab(Tab.HOME) {
 									HomeTabUI()
 								}
 								
@@ -314,6 +314,24 @@
 								viewModel: TabNavViewModel,
 								builder: TabNavGraphBuilder.() -> Unit,
 							) {
+							}
+						</code>
+					</pre>
+				</section>
+				<section data-auto-animate>
+					<pre data-id="tab-graph">
+						<code class="language-kotlin" data-trim data-line-numbers>
+							class TabGraph(
+								val tabToContentMap: Map&lt;String, @Composable () -&gt; Unit&gt;,
+							)
+							
+							class TabGraphBuilder() {
+								fun tab(
+									name: String,
+									content: @Composable () -&gt; Unit,
+								) {
+									/*... */
+								}
 							}
 						</code>
 					</pre>
@@ -1045,7 +1063,7 @@
 						<li class="fragment">Lower because of <img width="60px;" src="https://4.bp.blogspot.com/-NnAkV5vpYuw/XNMYF4RtLvI/AAAAAAAAI70/kdgLm3cnTO4FB4rUC0v9smscN3zHJPlLgCLcBGAs/s1600/Jetpack_logo%2B%25282%2529.png" style="margin: 0 12px;" /></li>
 						<li class="fragment">Even lower because of compose</li>
 					</ul>
-					<p class="fragment">And our apps are only getting more complicated</p>
+					<p class="fragment">And our apps are only getting more sophisticated and unique</p>
 				</section>
 				<section data-auto-animate>
 					<p data-id="punch-line">It's time to <br><b data-id="takeaway">Take control of navigation in our apps</b></p>
